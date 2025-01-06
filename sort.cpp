@@ -65,7 +65,6 @@ void quicksort(int l,int r,int *num){
     quicksort(pivot+1,r,num);
 }
 
-
 int HeapAdjust(int *num,int n,int index){
     int i=index;
     while(2*i+1<n){
