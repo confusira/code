@@ -7,6 +7,7 @@ typedef struct LinkNode{
     struct LinkNode *next;
 }LinkNode,*LinkList;
 
+//单个链表操作
 void initlist(LinkList &L){
     L=new LinkNode;
     L->value=-1;
@@ -56,6 +57,37 @@ void inputList(int n,LinkList &L,int *num){
     }
 }
 
+void delete1(LinkList &L,int pos){
+    LinkNode* cur=L;
+    int index=1;
+
+    while(cur!=NULL){
+        if(index==pos){
+            LinkNode* p=cur->next;
+            cur->next=p->next;
+            delete p;
+            return;
+        }
+        cur=cur->next;
+        index++;
+    }
+}
+
+void delete2(LinkList &L,int elem){
+    LinkNode* cur=L;
+
+    while(cur!=NULL){
+        if(cur->next->value==elem){
+            LinkNode* p=cur->next;
+            cur->next=p->next;
+            delete p;
+            return;
+        }
+        cur=cur->next;
+    }
+}
+
+/*
 int main(){
     LinkList L;
     initlist(L);
@@ -75,4 +107,9 @@ int main(){
 
     destroylist(L);
     return 0;
+}
+*/
+
+int main(){
+    
 }
