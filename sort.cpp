@@ -65,11 +65,41 @@ void quicksort(int l,int r,int *num){
     quicksort(pivot+1,r,num);
 }
 
+
+int HeapAdjust(int *num,int n,int index){
+    int i=index;
+    while(2*i+1<n){
+        int j=2*i+1;
+        if(j+1<n && num[j]<num[j+1]) j++;
+        if(num[j]<=num[i]) break;
+        swap(num[j],num[i]);
+        i=j;
+    }
+    return 0;
+}
+
+int createheap(int *num,int n){
+    for(int i=n/2-1;i>=0;i--){
+        HeapAdjust(num,n,i);
+    }
+    return 0;
+}
+
+int heapsort(int *num,int n){
+    createheap(num,n);
+
+    for(int i=n;i>1;i--){
+        swap(num[0],num[i-1]);
+
+        HeapAdjust(num,i-1,0);
+    }
+}
+
 int main(){
 
     int a[10]={1,4,5,3,9,7,2,8,10,6};
 
-    quicksort(0,9,a);
+    heapsort(a,10);
 
     for(int i=0;i<10;i++) cout << a[i] << endl;
 
