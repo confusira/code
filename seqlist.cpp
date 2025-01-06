@@ -87,6 +87,7 @@ void delete2(LinkList &L,int elem){
     }
 }
 
+//单链表调试
 /*
 int main(){
     LinkList L;
@@ -111,5 +112,5 @@ int main(){
 */
 
 int main(){
-    
+
 }
