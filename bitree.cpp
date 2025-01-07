@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stack>
 #include<queue>
 
 using namespace std;
@@ -31,27 +32,67 @@ void DestroyBiTree(BiTree& tree){
     }
 }
 
-void pretraverse(BiTree &T){
+void pretraverse1(BiTree &T){
     if(T==NULL) return;
 
     cout << T->data;
-    pretraverse(T->lchild);
-    pretraverse(T->rchild);
+    pretraverse1(T->lchild);
+    pretraverse1(T->rchild);
 }
 
-void intraverse(BiTree &T){
+void pretraverse2(BiTree &T){
+    stack<BiNode*> s;
+    s.push(T);
+
+    while(!s.empty()){
+        while(s.top()!=NULL){
+            cout << s.top()->data;
+            s.push(s.top()->lchild);
+        }
+
+        s.pop();
+
+        if(!s.empty()){
+            BiNode* top=s.top();
+            s.pop();
+            s.push(top->rchild);
+        }
+    }
+}
+
+void intraverse1(BiTree &T){
     if(T==NULL) return;
 
-    intraverse(T->lchild);
+    intraverse1(T->lchild);
     cout << T->data;
-    intraverse(T->rchild);
+    intraverse1(T->rchild);
 }
 
-void aftraverse(BiTree &T){
+void intraverse2(BiTree &T){
+    stack<BiNode*> s;
+    s.push(T);
+
+    while(!s.empty()){
+        while(s.top()!=NULL){
+            s.push(s.top()->lchild);
+        }
+
+        s.pop();
+
+        if(!s.empty()){
+            BiNode* top=s.top();
+            cout << top->data;
+            s.pop();
+            s.push(top->rchild);
+        }
+    }
+}
+
+void aftraverse1(BiTree &T){
     if(T==NULL) return;
 
-    aftraverse(T->lchild);
-    aftraverse(T->rchild);
+    aftraverse1(T->lchild);
+    aftraverse1(T->rchild);
     cout << T->data;
 }
 
@@ -75,17 +116,23 @@ int main(){
 
     GetTree(T,str);
 
-    pretraverse(T);
+    // pretraverse1(T);
+    // cout << endl;
+
+    pretraverse2(T);
     cout << endl;
 
-    intraverse(T);
+    // intraverse1(T);
+    // cout << endl;
+
+    intraverse2(T);
     cout << endl;
 
-    aftraverse(T);
-    cout << endl;
+    // aftraverse1(T);
+    // cout << endl;
 
-    leveltraverse(T);
-    cout << endl;
+    // leveltraverse(T);
+    // cout << endl;
 
     return 0;
 }
